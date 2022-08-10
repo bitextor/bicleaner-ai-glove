@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import sys
 
 from glove import Corpus, Glove
 
@@ -25,9 +26,10 @@ def _reproduce_input_matrix(glove_model):
     return np.asarray(out)
 
 
-def test_stanford_loading():
+def test_stanford_loading(request):
+    rootdir = request.config.rootdir
 
-    model = Glove.load_stanford('tests/stanford_test.txt')
+    model = Glove.load_stanford(rootdir + '/tests/stanford_test.txt')
 
     assert model.word_vectors is not None
     assert model.word_vectors.shape == (100, 25)
