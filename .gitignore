@@ -1,6 +1,8 @@
 *.pyc
 *.*~
 *.so
+*.c
+*.cpp
 dist/*
 *.egg*
 *.model
