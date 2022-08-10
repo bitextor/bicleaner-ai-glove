@@ -12,11 +12,11 @@ def read_corpus(filename):
     delchars = [chr(c) for c in range(256)]
     delchars = [x for x in delchars if not x.isalnum()]
     delchars.remove(' ')
-    delchars = ''.join(delchars)
+    delchars = str.maketrans('', '', ''.join(delchars))
 
     with open(filename, 'r') as datafile:
         for line in datafile:
-            yield line.lower().translate(None, delchars).split(' ')
+            yield line.lower().translate(delchars).split(' ')
 
 
 def read_wikipedia_corpus(filename):
