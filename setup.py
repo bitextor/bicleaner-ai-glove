@@ -10,16 +10,16 @@ from setuptools.command.test import test as TestCommand
 
 def define_extensions(cythonize=False):
 
-    compile_args = ['-fopenmp',
-                    '-ffast-math']
+    # Disable ffast-math on p
+    compile_args = ['-fopenmp', '-ffast-math']
 
-    # There are problems with illegal ASM instructions
-    # when using the Anaconda distribution (at least on OSX).
-    # This could be because Anaconda uses its own assembler?
-    # To work around this we do not add -march=native if we
-    # know we're dealing with Anaconda
-    #if 'anaconda' not in sys.version.lower():
-    #    compile_args.append('-march=native')
+    # Not using native if compiling with cibuildwheel
+    if "CIBUILDWHEEL" not in os.environ:
+        compile_args.append('-march=native')
+    # if using CIBUILDWHEEL
+    # Remove ffast-math for potential glibc>=2.31 systems
+    elif platform.python_version().startswith('3.10'):
+        compile_args.remove('-ffast-math')
 
     if cythonize:
         glove_cython = "src/glove/glove_cython.pyx"
