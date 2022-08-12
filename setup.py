@@ -18,17 +18,17 @@ def define_extensions(cythonize=False):
     # This could be because Anaconda uses its own assembler?
     # To work around this we do not add -march=native if we
     # know we're dealing with Anaconda
-    if 'anaconda' not in sys.version.lower():
-        compile_args.append('-march=native')
+    #if 'anaconda' not in sys.version.lower():
+    #    compile_args.append('-march=native')
 
     if cythonize:
-        glove_cython = "glove/glove_cython.pyx"
-        glove_metrics = "glove/metrics/accuracy_cython.pyx"
-        glove_corpus = "glove/corpus_cython.pyx"
+        glove_cython = "src/glove/glove_cython.pyx"
+        glove_metrics = "src/glove/metrics/accuracy_cython.pyx"
+        glove_corpus = "src/glove/corpus_cython.pyx"
     else:
-        glove_cython = "glove/glove_cython.c"
-        glove_metrics = "glove/metrics/accuracy_cython.c"
-        glove_corpus = "glove/corpus_cython.cpp"
+        glove_cython = "src/glove/glove_cython.c"
+        glove_metrics = "src/glove/metrics/accuracy_cython.c"
+        glove_corpus = "src/glove/corpus_cython.cpp"
 
     return [Extension("glove.glove_cython", [glove_cython],
                       extra_link_args=["-fopenmp"],
@@ -141,7 +141,8 @@ setup(
     description=('Python implementation of Global Vectors '
                  'for Word Representation (GloVe)'),
     long_description='',
-    packages=find_packages(),
+    packages=find_packages(where='src'),
+    package_dir={"": "src"},
     install_requires=['numpy', 'scipy'],
     tests_require=['pytest'],
     cmdclass={'test': PyTest, 'cythonize': Cythonize, 'clean': Clean},
