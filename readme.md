@@ -1,4 +1,6 @@
-# glove-python
+# bicleaner-ai-glove
+
+**NOTE**: this a fork from [glove-python](https://github.com/maciejkula/glove-python) made for [bicleaner-ai](https://github.com/bitextor/bicleaner-ai).
 
 [![Circle CI](https://circleci.com/gh/maciejkula/glove-python.svg?style=svg)](https://circleci.com/gh/maciejkula/glove-python)
 

@@ -136,10 +136,9 @@ class PyTest(TestCommand):
 
 
 setup(
-    name='glove_python',
-    version='0.1.0',
-    description=('Python implementation of Global Vectors '
-                 'for Word Representation (GloVe)'),
+    name='bicleaner-ai-glove',
+    version='0.2.0',
+    description=('glove-python fork for bicleaner-ai'),
     long_description='',
     packages=find_packages(where='src'),
     package_dir={"": "src"},
@@ -147,8 +146,10 @@ setup(
     tests_require=['pytest'],
     cmdclass={'test': PyTest, 'cythonize': Cythonize, 'clean': Clean},
     author='Maciej Kula',
-    url='https://github.com/maciejkula/glove-python',
-    download_url='https://github.com/maciejkula/glove-python/tarball/0.1.0',
+    maintainer='Jaume Zaragoza',
+    maintainer_email="jzaragoza@prompsit.com",
+    url='https://github.com/bitextor/bicleaner-ai-glove',
+    download_url='https://github.com/bitextor/bicleaner-ai-glove/releases/',
     license='Apache 2.0',
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: Apache Software License',
