@@ -7,7 +7,7 @@ import sys
 from setuptools import Command, Extension, setup, find_packages
 
 
-def define_extensions(cythonize=False):
+def define_extensions(cythonize=True):
 
     # Disable ffast-math on p
     compile_args = ['-fopenmp', '-ffast-math']
@@ -29,7 +29,7 @@ def define_extensions(cythonize=False):
         glove_metrics = "src/glove/metrics/accuracy_cython.c"
         glove_corpus = "src/glove/corpus_cython.cpp"
 
-    return [Extension("glove.glove_cython", [glove_cython],
+    extensions = [Extension("glove.glove_cython", [glove_cython],
                       extra_link_args=["-fopenmp"],
                       extra_compile_args=compile_args),
             Extension("glove.metrics.accuracy_cython",
@@ -41,6 +41,12 @@ def define_extensions(cythonize=False):
                       libraries=["stdc++"],
                       extra_link_args=compile_args,
                       extra_compile_args=compile_args)]
+    if cythonize:
+        import Cython
+        from Cython.Build import cythonize
+        return cythonize(extensions)
+    else:
+        return extensions
 
 
 def set_gcc():
@@ -117,7 +123,7 @@ class Clean(Command):
 
 setup(
     name='bicleaner-ai-glove',
-    version='0.2.0',
+    version='0.2.1',
     description=('glove-python fork for bicleaner-ai'),
     long_description='',
     packages=find_packages(where='src'),
